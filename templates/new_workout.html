@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Add Exercise</title>
+</head>
+<body>
+    <!-- Inside the form in the modal -->
+<div class="form-group">
+    <label for="workoutName">Workout Name</label>
+    <input type="text" class="form-control" id="workoutName" required>
+</div>
+
+    <div class="container">
+        <h1>Add Exercise</h1>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addExerciseModal">
+            Add Exercise/Set
+        </button>
+    </div>
+
+    <!-- Add Exercise Modal -->
+    <div class="modal" id="addExerciseModal" tabindex="-1" role="dialog" aria-labelledby="addExerciseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addExerciseModalLabel">Add/Edit Exercise</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addExerciseForm">
+                        <div class="form-group">
+                            <label for="exerciseName">Exercise Name</label>
+                            <input type="text" class="form-control" id="exerciseName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="setType">Set Type</label>
+                            <select class="form-control" id="setType">
+                                <option value="warmup">Warm-up</option>
+                                <option value="working">Working Set</option>
+                                <option value="drop">Drop Set</option>
+                                <option value="failure">Failure Set</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="setNumber">Set Number</label>
+                            <input type="number" class="form-control" id="setNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight</label>
+                            <input type="number" class="form-control" id="weight" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reps">Reps</label>
+                            <input type="number" class="form-control" id="reps" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveExercise">Save Exercise</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Exercise Table</h2>
+        <table class="table" id="exerciseTable">
+            <thead>
+                <tr>
+                    <th>Exercise Name</th>
+                    <th>Set Type</th>
+                    <th>Set Number</th>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exercise details will be displayed here -->
+            </tbody>
+        </table>
+
+        <h2>Total Volume</h2>
+        <p id="totalVolume">0</p>
+    </div>
+
+    <!-- Finish Workout Modal -->
+    <div class="modal" id="finishWorkoutModal" tabindex="-1" role="dialog" aria-labelledby="finishWorkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="finishWorkoutModalLabel">Finish Workout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Total Volume Lifted: <span id="modalTotalVolume">0</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveWorkout">Save Workout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... (previous code) ... -->
+
+<div class="container mt-4"> <!-- Add margin-top for spacing -->
+    <button type="button" id="submit" class="btn btn-primary">Finish Workout</button>
+</div>
+<!-- Inside the form in the modal -->
+
+
+
+<!-- ... (remaining code) ... -->
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('saveExercise').addEventListener('click', function() {
+            var exerciseName = document.getElementById('exerciseName').value;
+            var setType = document.getElementById('setType').value;
+            var setNumberInput = document.getElementById('setNumber');
+            var setNumber = parseInt(setNumberInput.value);
+            var weight = document.getElementById('weight').value;
+            var reps = document.getElementById('reps').value;
+            var volume = weight * reps;
+
+            // Check if an existing row is being edited
+            var rowIndex = document.getElementById('rowIndex').value;
+            if (rowIndex !== '') {
+                // Update the existing row
+                var table = document.getElementById('exerciseTable');
+                var row = table.rows[rowIndex];
+                row.cells[0].innerHTML = exerciseName;
+                row.cells[1].innerHTML = setType;
+                row.cells[2].innerHTML = setNumber;
+                row.cells[3].innerHTML = weight;
+                row.cells[4].innerHTML = reps;
+                row.cells[5].innerHTML = '<button class="btn btn-warning btn-sm" onclick="editRow(this)">Edit</button>';
+                document.getElementById('rowIndex').value = ''; // Reset the edit state
+            } else {
+                // Create a new row in the table with the values
+                var table = document.getElementById('exerciseTable');
+                var row = table.insertRow(-1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+                cell1.innerHTML = exerciseName;
+                cell2.innerHTML = setType;
+                cell3.innerHTML = setNumber;
+                cell4.innerHTML = weight;
+                cell5.innerHTML = reps;
+                cell6.innerHTML = '<button class="btn btn-warning btn-sm" onclick="editRow(this)">Edit</button>';
+            }
+
+            // Update total volume
+            var totalVolumeElement = document.getElementById('totalVolume');
+            var currentTotalVolume = parseInt(totalVolumeElement.innerHTML);
+            totalVolumeElement.innerHTML = currentTotalVolume + volume;
+
+            // Reset set number for the next entry
+            setNumberInput.value = setNumber + 1;
+
+            // Close the modal
+            $('#addExerciseModal').modal('hide');
+        });
+
+        function editRow(button) {
+            var row = button.closest('tr');
+            document.getElementById('exerciseName').value = row.cells[0].innerHTML;
+            document.getElementById('setType').value = row.cells[1].innerHTML;
+            document.getElementById('setNumber').value = row.cells[2].innerHTML;
+            document.getElementById('weight').value = row.cells[3].innerHTML;
+            document.getElementById('reps').value = row.cells[4].innerHTML;
+            document.getElementById('rowIndex').value = row.rowIndex;
+            $('#addExerciseModal').modal('show');
+        }
+
+        document.getElementById('submit').addEventListener('click', function() {
+            var totalVolume = document.getElementById('totalVolume').innerHTML;
+            document.getElementById('modalTotalVolume').innerHTML = totalVolume;
+            $('#finishWorkoutModal').modal('show');
+        });
+
+        document.getElementById('saveWorkout').addEventListener('click', function() {
+            // Add logic to save the workout (you can send it to the server or save it locally)
+            alert('Workout saved!');
+            // Close the modal
+            $('#finishWorkoutModal').modal('hide');
+        });
+    </script>
+    <input type="hidden" id="rowIndex" value="">
+</body>
+</html>

@@ -1,0 +1,5 @@
+{% autoescape off %}
+   welcome to django login hello {{ name }} confirm your login
+   by clicking on the given link conformation
+   link: https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}
